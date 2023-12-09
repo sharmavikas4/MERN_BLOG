@@ -1,0 +1,34 @@
+input {
+    display: block;
+    width: 94.7%;
+    margin:1vw 2.6vw;
+    border-radius: 5px;
+    font-size: 4vh;
+    border-width: 1px;;
+}
+input[type="file"]{
+    font-size: 2vh;
+    display: inline;
+}
+textarea{
+    width: 95%;
+    font-size: 2vh;
+    margin:1vw 2.6vw;
+    border-radius: 5px;
+}
+form {
+    padding: 10px;
+    text-align: center;
+}
+.create{
+    font-size: 2.5vh;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    border-width: 1px;
+}
+.create:hover{
+    color: white;
+    background-color: black;
+}

@@ -1,0 +1,24 @@
+.createButton{
+    background-color: #A084E8;
+    border: none;
+    margin: 1vw 0.5vw;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5vw 1vw;
+}
+.createButton:hover{
+    color: #A084E8;
+    background-color: white;
+}
+.logoutButton{
+    background-color: #A084E8;
+    border: none;
+    margin: 1vw 1vw;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5vw 1vw;
+}
+.logoutButton:hover{
+    color: #A084E8;
+    background-color: white;
+}

@@ -1,0 +1,30 @@
+.login{
+    padding: 12vw 40vw;
+    text-align: center;
+}
+.log{
+    padding: 3vw;
+    /* max-width: 24vw;
+    min-width: 24vw; */
+    justify-content: center;
+    align-items: center;
+}
+.n{
+    font-size: 3vw;
+    font-weight:600;
+}
+.welcome{
+    color: grey;
+}
+.google{
+    width: 1.5vw;
+    height: 1.5vw;
+}
+.auth{
+    width: 12vw;
+    height: 8vh;
+    font-size: larger;
+    border-color: rgb(186, 185, 185);
+    background-color: white;
+    border-radius: 8px;
+}

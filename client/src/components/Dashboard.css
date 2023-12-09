@@ -1,0 +1,23 @@
+.g{
+    padding: 4vw;
+    padding-top: 1vw;
+}
+.delete{
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+}
+.edit{
+    margin-bottom: 1vw;
+}
+.Myblog{
+    margin-top: 3vw;
+    text-align: center;
+    margin-bottom: 0;
+}
+.line2{
+    border: none;
+    border-top: 4px #000 groove;
+    opacity: 1;
+    width: 9%;
+    margin:0 auto;
+}

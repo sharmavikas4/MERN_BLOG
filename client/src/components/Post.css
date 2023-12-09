@@ -1,0 +1,64 @@
+.bo{
+    margin: 4vw;
+}
+.title{
+    text-align: center;
+    text-transform: capitalize;
+}
+.card{
+    padding: 3vw;
+}
+.postImage{
+    height: 50vw;
+    padding: 4vw;
+}
+.content{
+    text-transform: capitalize;
+    font-size: 2.5vh;
+}
+.name::first-letter{
+    text-transform: capitalize;
+}
+.like{
+    display: inline-block;
+    width: 2vw;
+}
+.createC{
+    margin: 4vh;
+}
+.commentName{
+    margin: 6vh;
+}
+.comment{
+    border: none;
+    display: inline-block;
+    width: 60vw;
+    border-bottom: 2px solid;
+    font-size: 2vh;
+    border-radius: 0;
+}
+.userImage{
+    float: left;
+    border-radius: 50%;
+    height: 8vh;
+    width: 4vw;
+}
+.users{
+    margin-left: 5vw;
+    padding-top: 1vw;
+}
+.username{
+    font-size: 2vh;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0;
+}
+.usercomment{
+    font-size: 1.8vh;
+}
+.copy{
+    border: none;
+    width: 5%;
+    background-color: white;
+    margin-left: -12px;
+}
