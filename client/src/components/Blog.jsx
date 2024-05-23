@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import { useLocation, useNavigate } from "react-router-dom";
+import './Blog.css';
 function Blog() {
   const navigate = useNavigate();
   const {id} = useParams();
@@ -60,7 +61,7 @@ function Blog() {
       </AppBar>
     </Box>
     {isLoading?
-    <h4>Loading...</h4>:
+    <h4 className="h4">Loading...</h4>:
     <Box sx={{ flexGrow: 1 }} className="bo">
      <Card className="card">
         <h1 className="title">{post?.post?.title?.slice(0,1).toUpperCase() + post?.post?.title?.slice(1)}</h1>

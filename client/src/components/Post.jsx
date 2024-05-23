@@ -9,7 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import { Fragment } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-function Post() {
+function Post(props) {
     const {state} = useLocation();
     const [isCopied,setIsCopied] = useState(false);
     const [l,setl] = useState();
@@ -27,6 +27,7 @@ function Post() {
         await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}`+"/success/check",{id: state.id,pid: state.post._id},{withCredentials: true}).then((res)=>{
           setComments(res.data.comment);
           setl(res.data.like);
+          console.log(res.data.like);
           if (res.data.message){
              setColor("red");
           }
@@ -37,7 +38,7 @@ function Post() {
       };
       fetchData();
     },[state.id,state.post._id]);
-    function like(post,id,i){
+    function like(post,id){
       axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}`+"/success/like",{...post,id: id},{withCredentials: true}).then((res)=>{
         console.log(res.data.message);
         if (res.data.message){
@@ -65,7 +66,7 @@ function Post() {
         }
       });
     }
-    function comment(post,id,i){
+    function comment(post,id){
       axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}`+'/success/comment',{...post,id: id,comment: c},{withCredentials: true}).then((res)=>{
         setComments((prevValue)=>{
           let newComment = {
@@ -91,25 +92,26 @@ function Post() {
       navigator.clipboard.writeText(`${import.meta.env.VITE_REACT_APP_CLIENT_URL}`+"/post/" + state.post._id);
       setIsCopied(true);
     }
+    console.log(state);
   return (
     <>
-    <Navbar></Navbar>
+    <Navbar logout={props.logout}></Navbar>
     <Box sx={{ flexGrow: 1 }} className="bo">
      <Card className="card">
-        <h1 className="title">{state.post.title.slice(0,1).toUpperCase() + state.post.title.slice(1)}</h1>
+        <h1 className="title">{state.post?.title?.slice(0,1).toUpperCase() + state.post?.title?.slice(1)}</h1>
         <img className="postImage" src = {state.post.image} alt = "Post" />
-        <p className="content">{state.post.content.split('\n').map((line,i)=>{return <Fragment key={i}>{line}<br/></Fragment>})}</p>
+        <p className="content">{state.post?.content?.split('\n').map((line,i)=>{return <Fragment key={i}>{line}<br/></Fragment>})}</p>
         <h6>Created by <span className="name">{state.name.slice(0,1).toUpperCase() + state.name.slice(1)}</span></h6>
         <button onClick={copy} className="copy" style={{width:isCopied?"10%":"5%",opacity:isCopied?"0.8":"1"}}>{isCopied?"Copied the link":<ContentCopyIcon/>}</button>
         <div><FavoriteIcon className="heart"sx={{color: {color} }} onClick={()=>{
-          like(state.post,state.id,state.i);
+          like(state.post,state.id);
         }}></FavoriteIcon> {l}</div>
         <hr></hr>
         <div className="createC">
         <img className="userImage" src={state.image.image} alt="User"/>
           <input className="comment" onChange={newC} placeholder="Type your comment" value={c}></input>
           <CommentIcon onClick={()=>{
-            comment(state.post,state.id,state.i);
+            comment(state.post,state.id);
           }}></CommentIcon>
         </div>
         <div>

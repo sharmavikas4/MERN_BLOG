@@ -8,6 +8,8 @@ import axios from "axios";
 import Dashboard from "./Dashboard";
 import Edit from "./Edit.jsx";
 import Blog from "./Blog.jsx";
+import Trending from "./Trending.jsx";
+import New from "./New.jsx";
 function App() {
   const [file, setFile] = useState(null);
   const [post, setPost] = useState({
@@ -180,6 +182,14 @@ function App() {
           <Route
             path="/edit"
             element={login ? <Edit logout={logout} /> : <Login click={click} />}
+          ></Route>
+          <Route
+            path="/trending"
+            element={login ? <Trending logout={logout} /> : <Login click={click} />}
+          ></Route>
+          <Route
+            path="/new"
+            element={login ? <New logout={logout} /> : <Login click={click} />}
           ></Route>
           <Route path="/post/:id" element={<Blog/>}>
           </Route>

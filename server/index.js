@@ -80,6 +80,7 @@ app.use(session({
    
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { runInNewContext } from 'vm';
 cloudinary.config({
     cloud_name:process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_KEY,
@@ -106,7 +107,10 @@ const userSchema = new mongoose.Schema({
       image: String,
       like: {
         n: {type: Number, default: 0},
-        likedBy: [String]
+        likedBy: [{
+          user: String,
+          date: String
+        }]
       },
       comments: [{
         comment: String,
@@ -164,7 +168,6 @@ app.post('/',function(req,res){
     });
 })
 app.get('/success',function(req,res){
- console.log("User is " + req.isAuthenticated());
   if (req.isAuthenticated()){
     USER.find().then((foundUsers)=>{
       if (foundUsers){
@@ -226,7 +229,7 @@ app.post("/success/like",function(req,res){
       else{
         if (foundUser){
           const index = foundUser.post[ind].like.likedBy.findIndex((u,i)=>{
-            if (req.user._id == u){
+            if (req.user._id == u.user){
               return true;
             }     
           })
@@ -243,14 +246,13 @@ app.post("/success/like",function(req,res){
       foundUser.post[ind].like.n = foundUser.post[ind].like.n + a;
       if (a===-1){
         const arr = foundUser.post[ind].like.likedBy.filter((u)=>{
-          return u!=req.user._id;
+          return u.user!=req.user._id;
         })
         foundUser.post[ind].like.likedBy = arr;
       }
       else {
-        foundUser.post[ind].like.likedBy.push(req.user._id);
+        foundUser.post[ind].like.likedBy.push({user:req.user._id,date: Date.now()});
       }
-
       foundUser.save();
       res.json({message:true,n: n});
       // const update = foundUser.post.find((p)=>{
@@ -317,16 +319,18 @@ app.post("/del",function(req,res){
 });
 app.post("/success/check",function(req,res){
   if (req.isAuthenticated()){
-    let ind = 0;
     USER.findById({_id: req.body.id}).then((foundUser)=>{
+      let ind = 0;
       foundUser.post.filter((p,i)=>{
+        console.log("p._id:" + p._id,"post:" + req.body.pid);
+        console.log(p._id==req.body.pid);
         if (p._id == req.body.pid){
           ind = i;
         }
       });
       let n = -1;
       foundUser.post[ind].like.likedBy.filter((l,i)=>{
-        if (l==req.user._id){
+        if (l.user==req.user._id){
           n = 1;
         }
       })
@@ -386,6 +390,79 @@ app.post("/success/comment",function(req,res){
       res.json({user: req.user.name,image: req.user.image});
     })
   })}})
+app.get("/trending",function(req,res){
+  if (req.isAuthenticated()){
+    let post = [];
+    USER.find().then((foundUser)=>{
+      if (foundUser){
+        foundUser.map((user)=>{
+          return user.post.map((p)=>{
+            const newpost ={
+              name: user.name,
+              post: p,
+              image: user.image,
+              id: user.id
+            }
+            post.push({...newpost});
+            return post;
+          });
+        })
+        post.sort((a,b)=>b.post.like.n - a.post.like.n);
+        res.json({post,image: req.user.image});
+      }
+    })
+  }
+})
+app.get("/new",function(req,res){
+  if (req.isAuthenticated()){
+    let post = [];
+    USER.find().then((foundUser)=>{
+      if (foundUser){
+        foundUser.map((user)=>{
+          return user.post.map((p)=>{
+            const newpost ={
+              name: user.name,
+              post: p,
+              image: user.image,
+              id: user.id
+            }
+            post.push({...newpost});
+            return post;
+          });
+        })
+        post.sort((a,b)=>b.post.date - a.post.date);
+        res.json({post,image: req.user.image});
+      }
+    })
+  }
+})
+app.get("/likedPost",function(req,res){
+  if (req.isAuthenticated()){
+    let post = [];
+    USER.find().then((foundUser)=>{
+      if (foundUser){
+        foundUser.map((user)=>{
+          return user.post.map((p)=>{
+            return p.like.likedBy.map((l)=>{
+              if (l.user === req.user.id){
+                const newpost ={
+                  name: user.name,
+                  post: p,
+                  image: user.image,
+                  id: user.id
+                }
+                post.push({...newpost});
+                return post;
+              }
+            })
+          });
+        })
+        post.sort((a,b)=>b.post.date - a.post.date);
+        res.json({post,image: req.user.image,name: req.user.name,id: req.user.id});
+      }
+    })
+  }
+})
 app.route("/logout")
   .get(function(req, res) {
     req.logout(function(err) {

@@ -1,0 +1,13 @@
+.blog1{
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
+.hr1{
+    margin-top: 0;
+    width: 11vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 3px groove black;
+    opacity: 50;
+}

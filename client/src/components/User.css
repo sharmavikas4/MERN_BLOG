@@ -1,6 +1,21 @@
 .blog {
     font-weight: 600;
     margin-bottom: 0;
+    margin-top: 2rem;
+}
+.blog1{
+    font-weight: 600;
+    margin: auto;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
+.blogline{
+    margin-top: 0;
+    width: 15vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 3px groove black;
+    opacity: 50;
 }
 .line{
     margin-top: 0;
