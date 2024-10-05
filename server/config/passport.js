@@ -8,21 +8,6 @@ dotenv.config();
 // Local strategy setup
 passport.use(USER.createStrategy());
 
-// Serialize the user
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-
-// Deserialize the user
-passport.deserializeUser(async function (id, done) {
-  try {
-    const user = await USER.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err, null);
-  }
-});
-
 // Google OAuth strategy
 passport.use(
   new GoogleStrategy(
@@ -48,5 +33,20 @@ passport.use(
     }
   )
 );
+
+// Serialize the user
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+// Deserialize the user
+passport.deserializeUser(async function (id, done) {
+  try {
+    const user = await USER.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
 
 export { passport };

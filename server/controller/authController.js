@@ -12,14 +12,20 @@ const googleAuthCallback = passport.authenticate("google", {
   successRedirect: process.env.CLIENT_URL,
 });
 
-// Logout the user
+//logout
 const logout = (req, res) => {
-  req.logout(function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
-  res.json({ message: false });
+  try {
+    req.logout(function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Logout failed" });
+      }
+    });
+    res.json({ message: false });
+  } catch (error) {
+    console.error("Error occurred:", error);
+    res.status(500).json({ error: "An unexpected error occurred" });
+  }
 };
 
 export { logout, googleAuth, googleAuthCallback };
