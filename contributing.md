@@ -30,33 +30,68 @@ git clone https://github.com/<your-github-username>/MERN_BLOG.git
 cd MERN_BLOG
 ```
 ## 5. Install the dependencies:
-```bash
-npm install
-```
-## 6. Create a new branch (use descriptive branch names
+
+    ```bash
+    cd server
+    npm install
+    cd ..
+    cd client
+    npm install
+    ```
+## 6. Set up environment variables:
+
+    Create a `.env` file in the server directory and add the following:
+
+    ```bash
+    GOOGLE_CLIENT_ID=<your-google-client-id>
+    GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+    URL=<your-server-url>
+    CLIENT_URL=<your-client-url>
+    DB=<your-database-connection-string>
+    CLOUD_NAME=<your-cloudinary-cloud-name>
+    CLOUDINARY_KEY=<your-cloudinary-api-key>
+    CLOUDINARY_SECRET=<your-cloudinary-api-secret>
+    ```
+
+## 7. Start the backend server:
+
+    ```bash
+    nodemon index.js
+    ```
+    
+## 8. Set up environment variables:
+
+    Create a `.env` file in the client  directory and add the following:
+   ```bash
+    VITE_REACT_APP_SERVER_URL=<your-server-url>
+    VITE_REACT_APP_CLIENT_URL=<your-client-url>
+    ```
+    
+## 9. Create a new branch (use descriptive branch names
    feature/<feature_name> or fix/<issue_name>):
 ```bash
 git checkout -b feature/<your_branch_name>
 ```
 
-## 7. Make changes and ensure the app runs correctly:
-```bash
-npm start
-```
-## 8. Stage your changes and commit (use descriptive commit messages like
+## 10. Make changes and ensure the app runs correctly:
+   ```bash
+   npm run dev
+   ```
+
+## 11. Stage your changes and commit (use descriptive commit messages like
    feat: added new feature or fix: corrected issue):
 ```bash
 git add .
 git commit -m "feat: added new feature"
 ```
-## 9. Push your local commits to the remote repository:
+## 12. Push your local commits to the remote repository:
 ```bash
 ## git push -u origin feature/<your_branch_name>
 ```
-## 10. Create a Pull Request (PR):
+## 13. Create a Pull Request (PR):
     Provide a detailed description of the changes you've made.
     If it's a UI change, consider adding screenshots for better understanding.
-## 11. Congratulations! 🎉 You've made your contribution.
+## 14. Congratulations! 🎉 You've made your contribution.
 
 ## Pull Request Review Criteria 🧲
 
