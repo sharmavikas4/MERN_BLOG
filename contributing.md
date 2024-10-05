@@ -11,7 +11,7 @@ Before getting started, ensure you have the following tools installed:
 - **npm** (version >= 6.x)
 
 You can check if Node.js and npm are installed by running:
-```bash
+
 node -v
 npm -v
 ```
@@ -20,18 +20,17 @@ npm -v
 ## 2. Fork this repository: Click the 'Fork' button at the top right of this page to create a copy of this repository in your account.
 ## 3. Clone the forked repository:
 
-```bash
+
 git clone https://github.com/<your-github-username>/MERN_BLOG.git
 ```
 
 ## 4. Navigate to the project directory
 
-```bash
+
 cd MERN_BLOG
 ```
 ## 5. Install the dependencies:
 
-    ```bash
     cd server
     npm install
     cd ..
@@ -42,7 +41,7 @@ cd MERN_BLOG
 
     Create a `.env` file in the server directory and add the following:
 
-    ```bash
+    
     GOOGLE_CLIENT_ID=<your-google-client-id>
     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
     URL=<your-server-url>
@@ -55,37 +54,37 @@ cd MERN_BLOG
 
 ## 7. Start the backend server:
 
-    ```bash
+    
     nodemon index.js
     ```
     
 ## 8. Set up environment variables:
 
     Create a `.env` file in the client  directory and add the following:
-   ```bash
+   
     VITE_REACT_APP_SERVER_URL=<your-server-url>
     VITE_REACT_APP_CLIENT_URL=<your-client-url>
     ```
     
 ## 9. Create a new branch (use descriptive branch names
    feature/<feature_name> or fix/<issue_name>):
-```bash
+
 git checkout -b feature/<your_branch_name>
 ```
 
 ## 10. Make changes and ensure the app runs correctly:
-   ```bash
+   
    npm run dev
    ```
 
 ## 11. Stage your changes and commit (use descriptive commit messages like
    feat: added new feature or fix: corrected issue):
-```bash
+
 git add .
 git commit -m "feat: added new feature"
 ```
 ## 12. Push your local commits to the remote repository:
-```bash
+
 ## git push -u origin feature/<your_branch_name>
 ```
 ## 13. Create a Pull Request (PR):
@@ -101,7 +100,7 @@ git commit -m "feat: added new feature"
 4. Your work must be original and adhere to the project's coding standards.
 5. Comment your code where necessary for clarity.
 6. Always ensure all tests pass before pushing your changes by running:
-```bash
+
 npm run test
 ```
 
