@@ -147,3 +147,15 @@ Contributions are welcome! To contribute:
 3. Commit your changes (`git commit -m 'Add your feature'`).
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Open a pull request.
+
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+
+  <a href="https://github.com/sharmavikas4/MERN_BLOG">
+    <img src="https://contrib.rocks/image?repo=sharmavikas4/MERN_BLOG&&max=100" />
+  </a>
+</div>
