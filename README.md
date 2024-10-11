@@ -29,7 +29,6 @@
     </tbody>
 </table>
 </div>
-<h3> <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="40" height="40" />Featured In</h3>
 
 ## <p style="font-family:var(--ff-philosopher);font-size:3rem;text-align:center;"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/tarikul-islam-anik/main/assets/images/Writing%20Hand%20Light%20Skin%20Tone.png" alt="Rocket" width="40" height="40" /> Project Overview</p>
 
@@ -80,14 +79,15 @@
 
 ## 📚 Table of Contents
 
-- [🚀 Project Overview](#project-overview)
-- [✨ Features](#features)
-- [🛠 Technologies Used](#technologies-used)
-- [⚙️ Installation](#installation)
-- [📖 Usage](#usage)
-- [📡 API Endpoints](#api-endpoints)
-- [🤝 Contributing](#contributing)
-- [📜 License](#license)
+- [🚀 Project Overview](#-project-overview)
+- [✨ Features](#-features)
+- [🛠 Tech Stack](#tech-stack)
+- [⚙️ Installation](#%EF%B8%8F-installation)
+- [📖 Usage](#-usage)
+- [📡 API Endpoints](#-api-endpoints)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [📜 Code of Conduct](#-code-of-conduct)
 
 ## ⚙️ Installation
 
@@ -180,7 +180,17 @@ Now you're ready to go! 🎉
 - `GET /likePost` - ❤️ Fetch posts liked by the current user.
 - `GET /logout` - 🔒 Logout the current user.
 
-<p style="font-family:var(--ff-philosopher);font-size:3rem;text-align:center;"><b>Contributing
+<p style="font-family:var(--ff-philosopher);font-size:3rem;text-align:center;">
+
+## 📜 Code of Conduct
+
+We are committed to fostering an inclusive and respectful community. Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
 
 <p style="font-family:var(--ff-philosopher);font-size:2rem;">We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's.
 
