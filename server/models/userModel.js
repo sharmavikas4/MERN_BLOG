@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
       ],
       date: Date,
       public_id: String,
+      category:{
+        type:String,
+        enum:["Travel","Fashion","Tech","Health","Quotes","Books","Society","Industry","Agriculture","Marketing","Stocks","DIY","Others"],
+        required:true
+      }
     },
   ],
 });
