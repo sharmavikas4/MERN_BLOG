@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
       public_id: String,
       category:{
         type:String,
-        enum:["Travel","Fashion","Tech","Health","Quotes","Books","Society","Industry","Agriculture","Marketing","Stocks","DIY","Others"],
+        enum:["Travel","Fashion","Tech","Health","Quotes","Books","Society","Industry","Agriculture","Marketing","Stocks","History","DIY","Others"],
         required:true
       }
     },
