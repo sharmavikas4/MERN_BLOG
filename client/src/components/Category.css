@@ -36,7 +36,7 @@
     background-color: #efedfb;
 }
 .filter:active{
-    background-color: #4070f4;
+    background-color: rgb(4, 4, 162);;
     border-color: transparent;
     color: #fff;
 }
