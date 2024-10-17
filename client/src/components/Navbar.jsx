@@ -46,7 +46,8 @@ export default function ButtonAppBar(props) {
               navigate("/");
             }}
           >
-            Blog.
+            <img height={"45rem"} width={"45rem"} src="images/blog2.png" alt="icon"></img>
+              <span className="title">BlogScape</span>
           </Typography>
           <Typography
             variant="h5"
