@@ -62,10 +62,10 @@ export default function ButtonAppBar(props) {
           <button
             className="createButton"
             onClick={() => {
-              navigate("/new");
+              navigate("/createpost");
             }}
           >
-            Explore Blogs
+            Create Blogs <AddIcon/>
           </button>
           <button className="logoutButton" onClick={props.logout}>
             Logout
