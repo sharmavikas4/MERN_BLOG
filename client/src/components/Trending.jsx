@@ -7,6 +7,8 @@ import "./Trending.css";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import PropTypes from 'prop-types'; // Import PropTypes
+
 const Trending = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -85,5 +87,8 @@ const Trending = (props) => {
       )}
     </>
   );
+};
+Trending.propTypes = {
+  logout: PropTypes.func.isRequired, // Validate logout prop
 };
 export default Trending;

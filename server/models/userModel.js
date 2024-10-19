@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
   image: String,
   email: { type: String },
   googleId: String,
+  role: {
+    type: String,
+    enum: ['admin', 'editor', 'user'],
+    default: 'user',
+  },
   post: [
     {
       title: String,

@@ -1,98 +1,30 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Avatar } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import "./Navbar.css";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import HistoryIcon from "@mui/icons-material/History";
-export default function ButtonAppBar(props) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [image, setImage] = useState("");
-  useEffect(() => {
-    const fetchData = async function () {
-      axios
-        .get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/success", {
-          withCredentials: "include",
-        })
-        .then((res) => {
-          setImage(res.data.img);
-        });
-    };
-    fetchData();
-  }, []);
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
+
+function ButtonAppBar({ image, logout }) {
   return (
-    <Box sx={{ flexGrow: 1 }} margin={2}>
-      <AppBar
-        position="static"
-        style={{
-          backgroundColor: "white",
-          color: "black",
-          fontWeight: "bolder",
-        }}
-      >
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" color="primary">
         <Toolbar>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Blog.
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Welcome {image}!
           </Typography>
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            onClick={() => {
-              navigate("/trending");
-            }}
-          >
-            Trending
-            <TrendingUpIcon fontSize="large" />
-          </Typography>
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            onClick={() => {
-              navigate("/new");
-            }}
-          >
-            New
-            <HistoryIcon fontSize="large" />
-          </Typography>
-          <button
-            className="createButton"
-            onClick={() => {
-              navigate("/createpost");
-            }}
-          >
-            Create Blog
-            <AddIcon />
-          </button>
-          <button className="logoutButton" onClick={props.logout}>
+          <Button color="inherit" onClick={logout}>
             Logout
-          </button>
-          <Avatar sx={{ width: 48, height: 48 }}>
-            <img
-              onClick={() => {
-                navigate("/dashboard");
-              }}
-              src={image}
-              alt="Profile"
-            />
-          </Avatar>
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+ButtonAppBar.propTypes = {
+  image: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+export default ButtonAppBar;

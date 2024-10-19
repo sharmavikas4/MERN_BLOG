@@ -14,7 +14,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.URL + "/auth/google/test", // Ensure the callback URL matches your setup
+      callbackURL: process.env.URL + "/auth/google/callback",  // Updated the callback URL
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
       scope: ["profile", "email"],
     },

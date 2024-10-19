@@ -1,5 +1,5 @@
 import express from "express";
-import isAuthenticated from "../middleware/auth.js";
+import { isAuthenticated, isAdmin, isEditor } from "../middleware/auth.js";
 import { upload } from "../config/cloudinary.js";
 import {
   createBlog,
@@ -17,16 +17,14 @@ import {
 const router = express.Router();
 
 // Blog routes
-router
-  .route("/success")
-  .post(upload.single("image"), isAuthenticated, createBlog)
-  .get(isAuthenticated, getBlogs);
+
+router.route("/success").post(upload.single("image"), isAuthenticated, isEditor, createBlog).get(isAuthenticated, getBlogs);
 router.route("/success/like").post(isAuthenticated, likeBlog);
 router.route("/success/comment").post(isAuthenticated, commentBlog);
 router.route("/trending").get(isAuthenticated, trendingBlogs);
 router.route("/new").get(isAuthenticated, newBlogs);
-router.route("/edit").post(upload.single("image"), isAuthenticated, editBlog);
-router.route("/del").post(isAuthenticated, deleteBlog);
+router.route("/edit").post(upload.single("image"), isAuthenticated, isEditor, editBlog);
+router.route("/del").post(isAuthenticated, isAdmin, deleteBlog);
 router.route("/success/check").post(isAuthenticated, checkLikeStatus);
 router.route("/blog").post(isAuthenticated, getBlogById);
 

@@ -47,6 +47,7 @@ app.use(
     methods: "GET,POST,PUT,DELETE",
   })
 );
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
@@ -57,6 +58,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
+
 // app.set("trust proxy",1);
 app.use(express.json());
 // app.use(session({
@@ -113,6 +115,8 @@ app.use("/", auth);
 app.route("/failure").get(function (req, res) {
   res.json({ message: "failure" });
 });
-app.listen(3000 || process.env.Port, function () {
-  console.log("Server is running on the port 3000");
+const PORT = process.env.PORT || 5001;
+
+app.listen(PORT, function () {
+  console.log(`Server is running on the port ${PORT}`);
 });
