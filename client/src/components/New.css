@@ -11,3 +11,10 @@
     border-top: 3px groove black;
     opacity: 50;
 }
+.nocategory{
+    position: relative;
+    left: 40vw;
+    top: 20vh;
+    font-size: 30px;
+    font-weight: 500;
+}

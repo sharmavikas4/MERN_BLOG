@@ -4,6 +4,7 @@ import "./CreatePost.css";
 import { Box } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import { useState } from "react";
+import Form from 'react-bootstrap/Form';
 import axios from "axios";
 function CreatePost(props) {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function CreatePost(props) {
     title: "",
     image: "",
     content: "",
+    category:""
   });
   function change(event) {
     const { name, value } = event.target;
@@ -24,7 +26,8 @@ function CreatePost(props) {
         ? { ...prevValue, title: value }
         : name === "image"
         ? { ...prevValue, image: event.target.files[0].name }
-        : { ...prevValue, content: value };
+        : name === "content"? { ...prevValue, content: value }:
+        { ...prevValue, category: value };
     });
   }
   function save(post) {
@@ -33,7 +36,7 @@ function CreatePost(props) {
     axios
       .post(
         `${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/success",
-        { title: post.title, content: post.content, image: file },
+        { title: post.title, content: post.content, image: file, category: post.category.toString() },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -48,6 +51,7 @@ function CreatePost(props) {
             title: "",
             image: "",
             content: "",
+            category:""
           });
           navigate("/dashboard");
         }
@@ -87,6 +91,24 @@ function CreatePost(props) {
             column="50"
             value={post.content}
           ></textarea>
+          <div className="mb-3 category">
+                <select className="form-select form-control" name="category" value={post.category.toString()} onChange={change} required >
+                    <option >Category</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Health">Health</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Industry">Industry</option>
+                    <option value="Society">Society</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="History">History</option>
+                    <option value="Art">Art</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Quotes">Quotes</option>
+                    <option value="Education">Education</option>
+                    <option value="Others">Others</option>
+                  </select>
+            </div>
           <input
             id="file"
             onChange={change}
@@ -94,6 +116,7 @@ function CreatePost(props) {
             name="image"
             placeholder="Enter your image"
           />
+           
           {isSaving ? (
             <h2>Saving...</h2>
           ) : (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar2 from "./Navbar2";
 import axios from "axios";
 import { Card, CardHeader, CardMedia, Grid } from "@mui/material";
 import "./Trending.css";
@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import "./New.css";
+import Category from "./Category";
 const New = (props) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,6 +21,8 @@ const New = (props) => {
   const [post, setPost] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [filteredPosts, setFilteredPosts] = useState([]);
   useEffect(() => {
     setIsLoading(true);
     const fetchData = () => {
@@ -30,7 +33,7 @@ const New = (props) => {
         .then((res) => {
           setPost(res.data.post);
           setImage(res.data.image);
-          console.log(res.data);
+          setFilteredPosts(res.data.post);
           setIsLoading(false);
         })
         .catch((err) => {
@@ -39,19 +42,31 @@ const New = (props) => {
     };
     fetchData();
   }, []);
-  console.log(post);
+
+
+  useEffect(() => {
+    filterPosts();
+}, [selectedCategory]);
+
+const filterPosts = () => {
+    let filtered = post;
+    if (selectedCategory !== 'All') {
+        filtered = filtered.filter(p => p.post.category === selectedCategory);
+    }
+    setFilteredPosts(filtered);
+  };
+
   return (
     <>
-      <Navbar logout={props.logout} />
+      <Navbar2 logout={props.logout} />
       {isLoading ? (
         <h4 className="h4">Loading...</h4>
       ) : (
         <Box sx={{ flexGrow: 1 }} className="box">
-          <h2 className="blog1">New Blogs.</h2>
-          <hr className="hr1"></hr>
+          <Category onCategoryChange={setSelectedCategory} />
           <Grid container className="grid" spacing={3}>
-            {post &&
-              post.map((p) => {
+            {filteredPosts.length!=0?
+              filteredPosts.map((p) => {
                 return (
                   <Grid item xs={12} sm={4} key={p.post.id}>
                     <Item>
@@ -80,8 +95,8 @@ const New = (props) => {
                     </Item>
                   </Grid>
                 );
-              })}
-            ;
+              }):
+              <div className="nocategory"><p>Coming Soon....</p></div>}
           </Grid>
         </Box>
       )}

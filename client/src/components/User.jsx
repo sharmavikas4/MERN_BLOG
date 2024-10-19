@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Slide from "./Slide";
 import "./User.css";
-import Login from "./Login";
 function User(props) {
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -71,6 +71,7 @@ function User(props) {
   console.log(data);
   return (
     <>
+    
       <ButtonAppBar image={image} logout={props.logout} />
       {/* <AppBar>
     <AddIcon></AddIcon>
