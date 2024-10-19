@@ -32,15 +32,23 @@
     cursor: pointer;
     width: fit-content;
 }
-.filter:hover{
+/* .filter:hover{
     background-color: #efedfb;
-}
+} */
 .filter:active{
     background-color: rgb(4, 4, 162);;
     border-color: transparent;
     color: #fff;
 }
+.selected{
+    background-color: rgb(4, 4, 162);;
+    border-color: transparent;
+    color: #fff;
+}
 .filter:active .cname{
+    color: #fff;
+}
+.selected .cname{
     color: #fff;
 }
 .filters{

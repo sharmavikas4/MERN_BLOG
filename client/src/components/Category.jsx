@@ -24,76 +24,54 @@ function Category({onCategoryChange}) {
     const [scrollPosition,setScrollPosition]=useState(0);
     const containerRef=useRef();
     const navigate = useNavigate();
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    onCategoryChange(category);
+};
+  
+    
+      
 
     const handleScroll=(scrollAmount)=>{
         let newScrollPosition=scrollPosition+scrollAmount;
         setScrollPosition(newScrollPosition);
         containerRef.current.scrollLeft =newScrollPosition;
     }
+    const categories = [
+        { name: 'All', displayName: 'Home', icon: <LanguageIcon /> },
+        { name: 'Travel', displayName: 'Travel', icon: <ConnectingAirportsIcon /> },
+        { name: 'Fashion', displayName: 'Fashion', icon: <DiamondIcon /> },
+        { name: 'Health', displayName: 'Health', icon: <HealthAndSafetyIcon /> },
+        { name: 'Education', displayName: 'Education', icon: <BookIcon /> },
+        { name: 'Tech', displayName: 'Tech', icon: <PrecisionManufacturingIcon /> },
+        { name: 'Art', displayName: 'Art', icon: <ColorLensIcon /> },
+        { name: 'Agriculture', displayName: 'Agriculture', icon: <AgricultureIcon /> },
+        { name: 'Industry', displayName: 'Industry', icon: <FactoryIcon /> },
+        { name: 'Society', displayName: 'Society', icon: <InterestsIcon /> },
+        { name: 'Marketing', displayName: 'Marketing', icon: <ShowChartIcon /> },
+        { name: 'History', displayName: 'History', icon: <HistoryIcon /> },
+        { name: 'Quotes', displayName: 'Quotes', icon: <FormatQuoteIcon /> },
+        { name: 'Others', displayName: 'Others', icon: <OtherHousesIcon /> },
+    ];
     return (
         <>
         <div className='filters' >
         <button className="btn" onClick={()=>{handleScroll(-ITEM_WIDTH)}}> <ArrowLeftIcon /></button>
         <div className='categories2' ref={containerRef}>
+            {categories.map((category) => (
+                <div
+                key={category.name}
+                className={`filter ${selectedCategory === category.name ? 'selected' : ''}`}
+                onClick={() => handleCategoryClick(category.name)} 
+                >
+                {category.icon}
+                <a className='cname' >{category.displayName}</a>
+                </div>
+            ))}
+                </div>
         
-        <div className='filter'>
-            <LanguageIcon />
-            <a className='cname' onClick={() => onCategoryChange('All')}>Home</a>
-        </div>
-        <div className='filter'>
-            <ConnectingAirportsIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Travel')}>Travel</a>
-        </div>
-        <div className='filter'>
-            <DiamondIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Fashion')}>Fashion</a>
-        </div>
-        <div className='filter'>
-            <HealthAndSafetyIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Health')}>Health</a>
-        </div>
-        <div className='filter'>
-            <BookIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Education')}>Education</a>
-        </div>
-        <div className='filter'>
-            <PrecisionManufacturingIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Tech')}>Tech</a>
-        </div>
-        <div className='filter'>
-            <ColorLensIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Art')}>Art</a>
-        </div>
-        <div className='filter'>
-            <AgricultureIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Agriculture')}>Agriculture</a>
-        </div>
-        <div className='filter'>
-            <FactoryIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Industry')}>Industry</a>
-        </div>
-        <div className='filter'>
-            <InterestsIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Society')}>Society</a>
-        </div>
-        <div className='filter'>
-            <ShowChartIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Marketing')}>Marketing</a>
-        </div>
-        <div className='filter'>
-            <HistoryIcon/>
-            <a className='cname' onClick={() => onCategoryChange('History')}>History</a>
-        </div>
-        <div className='filter'>
-            <FormatQuoteIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Quotes')}>Quotes</a>
-        </div>
-         <div className='filter'>
-            <OtherHousesIcon/>
-            <a className='cname' onClick={() => onCategoryChange('Others')}>Others</a>
-        </div> 
-        
-        </div>
         <button className='btn' onClick={()=>{handleScroll(ITEM_WIDTH)}}><ArrowRightIcon/></button>
         </div>
         
