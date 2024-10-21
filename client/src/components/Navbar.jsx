@@ -10,8 +10,16 @@ function ButtonAppBar({ image, logout }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Welcome {image}!
+         <Typography
+            variant="h4"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <img height={"45rem"} width={"45rem"} src="images/blog2.png" alt="icon"></img>
+              <span className="title">BlogScape</span>
           </Typography>
           <Button color="inherit" onClick={logout}>
             Logout
