@@ -1,61 +1,45 @@
 import USER from "../models/userModel.js";
 import { v2 as cloudinary } from "cloudinary";
+
 // Create a new blog post
 const createBlog = async (req, res) => {
   try {
-    console.log(req.file.path);
-    const result = await cloudinary.uploader.upload(req.file.path);
-    const newpost = {
+    const uploadResult = await cloudinary.uploader.upload(req.file.path);
+    
+    const newPost = {
       title: req.body.title,
       content: req.body.content,
-      image: req.file.path,
+      image: uploadResult.secure_url, // Use secure_url from Cloudinary
       date: Date.now(),
-      public_id: req.body.public_id,
+      public_id: uploadResult.public_id,
     };
-    console.log(result.public_id);
-    // USER.findOneAndUpdate(
-    //   { email: req.user.email }, // Update condition
-    //   { $set: { img: req.file.path } } // New field and value
-    // )
-    //   .then(() => {
-    //     console.log("Added successfully");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
-    // Find the user and add the post
+
     const foundUser = await USER.findById(req.user.id);
-    if (foundUser) {
-      foundUser.post.push(newpost);
-      await foundUser.save();
-      return res.json({ message: true });
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // If user is not found
-    res.status(404).json({ message: "User not found" });
-  } catch (error) {
-    console.error("Error:", err);
+    foundUser.post.push(newPost);
+    await foundUser.save();
+    
+    res.json({ message: true });
+  } catch (err) {
+    console.error("Error creating blog post:", err);
     res.status(500).json({ message: false, error: err.message });
   }
 };
-
-// app.get("/success/like",function(req,res){
-//   if (req.isAuthenticated()){
-//     res.json(({message: "vikas"}))
-//   }
-// });
 
 // Fetch all blogs
 const getBlogs = async (req, res) => {
   try {
     const foundUsers = await USER.find();
-    if (foundUsers) {
-      res.json({ message: true, user: foundUsers, img: req.user.image });
-    } else {
-      res.status(404).json({ message: false, error: "Users not found" });
+    if (!foundUsers) {
+      return res.status(404).json({ message: false, error: "No users found" });
     }
+
+    res.json({ message: true, users: foundUsers, img: req.user.image });
   } catch (err) {
-    console.error("Error:", err);
+    console.error("Error fetching blogs:", err);
     res.status(500).json({ message: false, error: err.message });
   }
 };
@@ -63,46 +47,32 @@ const getBlogs = async (req, res) => {
 // Like a blog post
 const likeBlog = async (req, res) => {
   try {
-    // Find the user by blog ID
     const foundUser = await USER.findById(req.body.id);
     if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the index of the post to like
-    let ind = foundUser.post.findIndex((p) => p._id == req.body._id);
-    if (ind === -1) {
+    const postIndex = foundUser.post.findIndex((p) => p._id == req.body._id);
+    if (postIndex === -1) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    let n = -1;
-    let post = foundUser.post[ind];
+    const post = foundUser.post[postIndex];
+    const likeIndex = post.like.likedBy.findIndex((u) => u.user == req.user._id);
 
-    // Check if the user already liked the post
-    const likeIndex = post.like.likedBy.findIndex(
-      (u) => u.user == req.user._id
-    );
     if (likeIndex !== -1) {
-      // Unlike the post if already liked
-      post.like.likedBy = post.like.likedBy.filter(
-        (u) => u.user != req.user._id
-      );
+      post.like.likedBy.splice(likeIndex, 1);
       post.like.n -= 1;
-      n = likeIndex;
     } else {
-      // Like the post if not already liked
       post.like.likedBy.push({ user: req.user._id, date: Date.now() });
       post.like.n += 1;
     }
 
-    // Save the updated user document
     await foundUser.save();
-
-    // Respond with success and like status
-    res.json({ message: true, n });
+    res.json({ message: true, liked: likeIndex === -1 });
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ message: "An error occurred", error: err.message });
+    console.error("Error liking blog post:", err);
+    res.status(500).json({ message: false, error: err.message });
   }
 };
 
@@ -119,84 +89,59 @@ const commentBlog = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    let newComment = {
+    const newComment = {
       comment: req.body.comment,
       user: req.user.name,
       image: req.user.image,
     };
 
     foundUser.post[postIndex].comments.push(newComment);
-
     await foundUser.save();
 
-    res.json({ user: req.user.name, image: req.user.image });
+    res.json({ message: true, user: req.user.name, image: req.user.image });
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ message: "An error occurred", error: err.message });
+    console.error("Error adding comment:", err);
+    res.status(500).json({ message: false, error: err.message });
   }
 };
 
 // Fetch trending blogs
 const trendingBlogs = async (req, res) => {
   try {
-    let post = [];
     const foundUsers = await USER.find();
-
     if (!foundUsers || foundUsers.length === 0) {
       return res.status(404).json({ message: "No users found" });
     }
 
-    foundUsers.forEach((user) => {
-      user.post.forEach((p) => {
-        const newpost = {
-          name: user.name,
-          post: p,
-          image: user.image,
-          id: user.id,
-        };
-        post.push({ ...newpost });
-      });
-    });
+    let posts = foundUsers.flatMap((user) => 
+      user.post.map((p) => ({ name: user.name, post: p, image: user.image, id: user.id }))
+    );
 
-    // Sort the posts by likes
-    post.sort((a, b) => b.post.like.n - a.post.like.n);
-
-    res.json({ post, image: req.user.image });
+    posts.sort((a, b) => b.post.like.n - a.post.like.n);
+    res.json({ posts, image: req.user.image });
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ message: "An error occurred", error: err.message });
+    console.error("Error fetching trending blogs:", err);
+    res.status(500).json({ message: false, error: err.message });
   }
 };
 
 // Fetch new blogs
 const newBlogs = async (req, res) => {
   try {
-    let post = [];
     const foundUsers = await USER.find();
-
     if (!foundUsers || foundUsers.length === 0) {
       return res.status(404).json({ message: "No users found" });
     }
 
-    foundUsers.forEach((user) => {
-      user.post.forEach((p) => {
-        const newpost = {
-          name: user.name,
-          post: p,
-          image: user.image,
-          id: user.id,
-        };
-        post.push({ ...newpost });
-      });
-    });
+    let posts = foundUsers.flatMap((user) => 
+      user.post.map((p) => ({ name: user.name, post: p, image: user.image, id: user.id }))
+    );
 
-    // Sort the posts by date (newest first)
-    post.sort((a, b) => b.post.date - a.post.date);
-
-    res.json({ post, image: req.user.image });
+    posts.sort((a, b) => b.post.date - a.post.date);
+    res.json({ posts, image: req.user.image });
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({ message: "An error occurred", error: err.message });
+    console.error("Error fetching new blogs:", err);
+    res.status(500).json({ message: false, error: err.message });
   }
 };
 
@@ -208,15 +153,11 @@ const editBlog = async (req, res) => {
 
   try {
     const foundUser = await USER.findById(req.body.id);
-
     if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const postIndex = foundUser.post.findIndex(
-      (p) => p._id.toString() === req.body.pid
-    );
-
+    const postIndex = foundUser.post.findIndex((p) => p._id.toString() === req.body.pid);
     if (postIndex === -1) {
       return res.status(404).json({ message: "Post not found" });
     }
@@ -225,20 +166,16 @@ const editBlog = async (req, res) => {
 
     // Handle image update logic
     if (image) {
-      // Only delete the old image if there is a new image
       if (existingPost.public_id) {
         await deleteImageFromCloudinary(existingPost.public_id);
       }
-      // Set new image path and public_id from Cloudinary after upload
-      foundUser.post[postIndex].image = image;
-      // You might need to upload the new image to Cloudinary and get its public_id
-      // foundUser.post[postIndex].public_id = newPublicId;
+      const uploadResult = await cloudinary.uploader.upload(image); // Upload new image to Cloudinary
+      foundUser.post[postIndex].image = uploadResult.secure_url; // Use secure_url from Cloudinary
+      foundUser.post[postIndex].public_id = uploadResult.public_id; // Save new public_id
     } else {
-      // If no new image, retain existing image
-      foundUser.post[postIndex].image = existingPost.image;
+      foundUser.post[postIndex].image = existingPost.image; // Keep existing image if no new image is provided
     }
 
-    // Update post details
     foundUser.post[postIndex].title = title;
     foundUser.post[postIndex].content = content;
 
@@ -264,28 +201,18 @@ const deleteImageFromCloudinary = async (publicId) => {
 // Delete a blog
 const deleteBlog = async (req, res) => {
   try {
-    // Find user by ID and populate posts
     const foundUser = await USER.findById(req.body.id).select("post");
-
     if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the post to delete
-    const postToDelete = foundUser.post.find(
-      (p) => p._id.toString() === req.body.pid
-    );
-
+    const postToDelete = foundUser.post.find((p) => p._id.toString() === req.body.pid);
     if (!postToDelete) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Remove the post from the user's posts
-    foundUser.post = foundUser.post.filter(
-      (p) => p._id.toString() !== req.body.pid
-    );
+    foundUser.post = foundUser.post.filter((p) => p._id.toString() !== req.body.pid);
 
-    // If the post has a public_id, attempt to delete from Cloudinary
     if (postToDelete.public_id) {
       await cloudinary.uploader.destroy(postToDelete.public_id);
       console.log(`Deleted image with public_id: ${postToDelete.public_id}`);
@@ -293,7 +220,6 @@ const deleteBlog = async (req, res) => {
       console.warn("Post has no public_id, skipping Cloudinary deletion.");
     }
 
-    // Save the updated user
     await foundUser.save();
     res.json({ message: true });
   } catch (err) {
@@ -305,66 +231,48 @@ const deleteBlog = async (req, res) => {
 // Check like status
 const checkLikeStatus = async (req, res) => {
   try {
-    const foundUser = await USER.findById({ _id: req.body.id });
-
+    const foundUser = await USER.findById(req.body.id);
     if (!foundUser) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    let ind = -1;
-    foundUser.post.forEach((p, i) => {
-      console.log("p._id:", p._id, "post:", req.body.pid);
-      if (p._id == req.body.pid) {
-        ind = i;
-      }
-    });
-
-    if (ind === -1) {
+    const postIndex = foundUser.post.findIndex((p) => p._id == req.body.pid);
+    if (postIndex === -1) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    let n = -1;
-    foundUser.post[ind].like.likedBy.forEach((l) => {
-      if (l.user == req.user._id) {
-        n = 1;
-      }
-    });
+    const isLiked = foundUser.post[postIndex].like.likedBy.some((l) => l.user == req.user._id);
 
     res.json({
-      message: n === 1,
-      like: foundUser.post[ind].like.n,
-      comment: foundUser.post[ind].comments,
+      message: true,
+      liked: isLiked,
+      likeCount: foundUser.post[postIndex].like.n,
+      comments: foundUser.post[postIndex].comments,
     });
   } catch (err) {
-    console.error("Error in checkLikeStatus:", err); // Log the error for debugging
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: err.message });
+    console.error("Error checking like status:", err);
+    res.status(500).json({ message: false, error: err.message });
   }
 };
 
 // Fetch a particular blog by id
-const getBlogById = (req, res) => {
-  let post = {};
-  const id = req.body.id;
-  console.log(id);
-  USER.findOne({ "post._id": id }, { "post.$": 1 }).then((foundUser) => {
-    if (foundUser && foundUser.post.length != 0) {
-      USER.findById({ _id: foundUser._id })
-        .then((found) => {
-          if (found) {
-            post = {
-              name: found.name,
-              post: foundUser.post[0],
-            };
-            res.json({ post });
-          }
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+const getBlogById = async (req, res) => {
+  try {
+    const foundUser = await USER.findOne({ "post._id": req.body.id }, { "post.$": 1 });
+    if (!foundUser || foundUser.post.length === 0) {
+      return res.status(404).json({ message: "Post not found" });
     }
-  });
+
+    const post = {
+      name: foundUser.name,
+      post: foundUser.post[0],
+    };
+
+    res.json({ post });
+  } catch (err) {
+    console.error("Error fetching blog by ID:", err);
+    res.status(500).json({ message: false, error: err.message });
+  }
 };
 
 export {
