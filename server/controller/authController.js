@@ -10,6 +10,7 @@ const googleAuth = passport.authenticate("google", {
 const googleAuthCallback = passport.authenticate("google", {
   failureRedirect: "/failure",
   successRedirect: process.env.CLIENT_URL,
+  session: true,
 });
 
 //logout

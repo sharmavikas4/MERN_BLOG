@@ -1,91 +1,71 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
 import axios from "axios";
-import { Card, CardHeader, CardMedia, Grid } from "@mui/material";
-import "./Trending.css";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+import PropTypes from 'prop-types'; // <-- Import PropTypes
 import "./New.css";
-const New = (props) => {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+
+function New(props) {
   const navigate = useNavigate();
-  const [post, setPost] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [image, setImage] = useState("");
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchData = () => {
-      axios
-        .get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/new", {
-          withCredentials: true,
-        })
-        .then((res) => {
-          setPost(res.data.post);
-          setImage(res.data.image);
-          console.log(res.data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    };
-    fetchData();
-  }, []);
-  console.log(post);
+  const [post, setPost] = useState({
+    title: "",
+    content: "",
+    image: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPost((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/new`, post, {
+        withCredentials: true,
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
+
   return (
-    <>
-      <Navbar logout={props.logout} />
-      {isLoading ? (
-        <h4 className="h4">Loading...</h4>
-      ) : (
-        <Box sx={{ flexGrow: 1 }} className="box">
-          <h2 className="blog1">New Blogs.</h2>
-          <hr className="hr1"></hr>
-          <Grid container className="grid" spacing={3}>
-            {post &&
-              post.map((p) => {
-                return (
-                  <Grid item xs={12} sm={4} key={p.post.id}>
-                    <Item>
-                      <Card
-                        key={p.CardMedia}
-                        onClick={() => {
-                          navigate("/post", {
-                            state: {
-                              image: { image },
-                              name: p.name,
-                              post: p.post,
-                              id: p.id,
-                              l: p.post.like.n,
-                            },
-                          });
-                        }}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="200"
-                          image={p.post.image}
-                          alt="Chevrolet"
-                        />
-                        <CardHeader title={p.post.title} />
-                      </Card>
-                    </Item>
-                  </Grid>
-                );
-              })}
-            ;
-          </Grid>
-        </Box>
-      )}
-    </>
+    <div className="new-post">
+      <h1>Create New Post</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={post.title}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="content"
+          placeholder="Content"
+          value={post.content}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="file"
+          name="image"
+          onChange={(e) => setPost({ ...post, image: e.target.files[0] })}
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <button onClick={props.logout}>Logout</button> {/* Logout button */}
+    </div>
   );
+}
+
+// Add PropTypes validation for 'logout'
+New.propTypes = {
+  logout: PropTypes.func.isRequired,
 };
+
 export default New;

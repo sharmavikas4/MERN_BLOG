@@ -3,17 +3,27 @@ import ButtonAppBar from "./Navbar.jsx";
 import "./CreatePost.css";
 import { Box } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 function CreatePost(props) {
   const navigate = useNavigate();
   const [isSaving, setisSaving] = useState(false);
   const [file, setFile] = useState(null);
+  const [role, setRole] = useState("");
   const [post, setPost] = useState({
     title: "",
     image: "",
     content: "",
   });
+  useEffect(() => {
+    const fetchRole = async () => {
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_SERVER_URL}/role`, { withCredentials: "include" });
+      setRole(res.data.role);
+    };
+    fetchRole();
+  }, []);
+
   function change(event) {
     const { name, value } = event.target;
     if (name === "image") {
@@ -27,12 +37,12 @@ function CreatePost(props) {
         : { ...prevValue, content: value };
     });
   }
+
   function save(post) {
     setisSaving(true);
-    console.log(`${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/success");
     axios
       .post(
-        `${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/success",
+        `${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/createpost",
         { title: post.title, content: post.content, image: file },
         {
           headers: {
@@ -56,6 +66,11 @@ function CreatePost(props) {
         console.log(err.message);
       });
   }
+  // Redirect if the user is not admin or editor
+  if (role !== "admin" && role !== "editor") {
+    return <h1>You are not authorized to create a post</h1>;
+  }
+
   return (
     <>
       <ButtonAppBar logout={props.logout} />
@@ -65,46 +80,46 @@ function CreatePost(props) {
             event.preventDefault();
             save(post);
           }}
-          action={`${import.meta.env.VITE_REACT_APP_SERVER_URL}` + "/success"}
-          method="Post"
           encType="multipart/form-data"
         >
-          <h1>
-            Create Post <CreateIcon fontSize="large" />
-          </h1>
-          <input
-            onChange={change}
-            type="text"
-            name="title"
-            placeholder="Enter your title"
-            value={post.title}
-          ></input>
-          <textarea
-            onChange={change}
-            name="content"
-            placeholder="Enter your blog post content"
-            rows="8"
-            column="50"
-            value={post.content}
-          ></textarea>
-          <input
-            id="file"
-            onChange={change}
-            type="file"
-            name="image"
-            placeholder="Enter your image"
-          />
-          {isSaving ? (
-            <h2>Saving...</h2>
-          ) : (
-            <button className="create" type="submit">
-              Create
+          <div className="create">
+            <h2>Create Your Blog</h2>
+            <label>Title</label>
+            <input
+              className="bloginput"
+              type="text"
+              name="title"
+              value={post.title}
+              onChange={change}
+              required
+            />
+            <label>Image</label>
+            <input
+              className="bloginput"
+              type="file"
+              name="image"
+              onChange={change}
+              required
+            />
+            <label>Content</label>
+            <textarea
+              className="blogtextarea"
+              name="content"
+              value={post.content}
+              onChange={change}
+              required
+            />
+            <button type="submit" className="createblogbutton">
+              {isSaving ? "Saving..." : "Create"}
+              <CreateIcon />
             </button>
-          )}
+          </div>
         </form>
       </Box>
     </>
   );
 }
-// value={props.post.image}
+CreatePost.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
 export default CreatePost;

@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import { Fragment } from "react";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PropTypes from "prop-types";
 function Post(props) {
     const {state} = useLocation();
     const [isCopied,setIsCopied] = useState(false);
@@ -130,4 +131,7 @@ function Post(props) {
     </>
   )
 }
+Post.propTypes = {
+  logout: PropTypes.func.isRequired, // Validate logout prop
+};
 export default Post

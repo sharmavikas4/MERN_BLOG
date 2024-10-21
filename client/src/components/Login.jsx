@@ -1,6 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { Card } from "@mui/material";
+import PropTypes from "prop-types";
 function Login(props) {
   return (
     <div className="login">
@@ -14,4 +15,7 @@ function Login(props) {
     </div>
   );
 }
+Login.propTypes = {
+  click: PropTypes.func.isRequired, // Validate click prop
+};
 export default Login;
