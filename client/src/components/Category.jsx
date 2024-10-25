@@ -27,20 +27,19 @@ function Category({onCategoryChange}) {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    onCategoryChange(category);
+    if(selectedCategory==category){
+        setSelectedCategory("All");
+        onCategoryChange("All");
+    }
+    else{setSelectedCategory(category);
+    onCategoryChange(category);}
 };
-  
-    
-      
-
     const handleScroll=(scrollAmount)=>{
         let newScrollPosition=scrollPosition+scrollAmount;
         setScrollPosition(newScrollPosition);
         containerRef.current.scrollLeft =newScrollPosition;
     }
     const categories = [
-        { name: 'All', displayName: 'Home', icon: <LanguageIcon /> },
         { name: 'Travel', displayName: 'Travel', icon: <ConnectingAirportsIcon /> },
         { name: 'Fashion', displayName: 'Fashion', icon: <DiamondIcon /> },
         { name: 'Health', displayName: 'Health', icon: <HealthAndSafetyIcon /> },
