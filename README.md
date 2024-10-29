@@ -19,6 +19,7 @@ An interactive and feature-rich blogging website developed using modern web tech
    </table>
 
 <br />
+
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
@@ -29,8 +30,13 @@ An interactive and feature-rich blogging website developed using modern web tech
 6. [Usage](#usage)
 7. [API Endpoints](#api-endpoints)
 8. [Contributing](#contributing)
-9. [License](#license)
-10. [GSSOC Labels](#gssoc-labels)
+9. [Pull Request Review Criteria](#Pull Request Review Criteria)
+10. [Code Of Conduct](#Code of Conduct)
+11. [Contributors](#Contributors)
+12. [Stargazers](#Stargazers)
+13. [Forkers](#Forkers)
+14. [License](#license)
+
 
 ## Project Overview
 
@@ -207,15 +213,56 @@ Contributions are welcome! To contribute:
    ```
 5. Open a pull request.
 
+## Pull Request Review Criteria 🧲
+
+1. Please fill out the PR template properly when creating a pull request.
+2. Assign yourself to the issue you’re working on to help us track progress.
+3. Never commit to the main branch.
+4. Your work must be original and adhere to the project's coding standards.
+5. Comment your code where necessary for clarity.
+6. Always ensure all tests pass before pushing your changes by running:
+
+```bash
+npm run test
+```
+
+## Code of Conduct 😇
+
+We strive to create a welcoming and inclusive environment for all contributors and users. By participating in this project, you agree to abide by our Code of Conduct.
+
+### Our Standards
+
+1. **Respect**: Treat everyone with respect, regardless of their background or opinions.
+2. **Inclusivity**: Encourage and support diverse perspectives and contributions.
+3. **Collaboration**: Be open to constructive feedback and collaboration.
+4. **Professionalism**: Maintain professionalism in all interactions, online and offline.
+
+## Contributors
+
+A heartfelt thank you to the following individuals for their valuable contributions to this project! Your support and dedication are greatly appreciated:
+
+<a href="https://github.com/sharmavikas4/MERN_BLOG/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sharmavikas4/MERN_BLOG" />
+</a>
+
+## Stargazers
+
+<div align='center'>
+
+[Stargazers repo roster for @sharmavikas4/MERN_BLOG
+
+</div>
+
+## Forkers
+<div align='center'>
+
+[Forkers repo roster for @sharmavikas4/MERN_BLOG
+
+</div>
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## GSSOC Labels
-
-This project is part of **GirlScript Summer of Code** initiative. The following labels are used for tracking contributions:
-
-- **good first issue**: Suitable for newcomers.
-- **help wanted**: Contributions needed.
-- **enhancement**: Suggest improvements or new features.
 
