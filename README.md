@@ -33,9 +33,7 @@ An interactive and feature-rich blogging website developed using modern web tech
 9. [Pull Request Review Criteria](#PullRequestReviewCriteria)
 10. [Code Of Conduct](#CodeofConduct)
 11. [Contributors](#Contributors)
-12. [Stargazers](#Stargazers)
-13. [Forkers](#Forkers)
-14. [License](#license)
+12. [License](#license)
 
 
 ## Project Overview
@@ -244,21 +242,6 @@ A heartfelt thank you to the following individuals for their valuable contributi
 <a href="https://github.com/sharmavikas4/MERN_BLOG/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=sharmavikas4/MERN_BLOG" />
 </a>
-
-## Stargazers
-
-<div align='center'>
-
-[Stargazers repo roster for @sharmavikas4/MERN_BLOG
-
-</div>
-
-## Forkers
-<div align='center'>
-
-[Forkers repo roster for @sharmavikas4/MERN_BLOG
-
-</div>
 
 
 ## License
