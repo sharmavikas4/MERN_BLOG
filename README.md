@@ -1,23 +1,43 @@
-# MERN Blog Website
+# MERN Blog
 
-This project is an interactive and feature-rich blogging website developed using modern web technologies. It allows users to create, edit, and delete blogs, comment on posts, and view trending blogs. Additionally, users can sign in using Google OAuth for easy authentication, upload images via Cloudinary, and manage their blogs through a personalized dashboard.
+An interactive and feature-rich blogging website developed using modern web technologies. This project allows users to create, edit, and delete blogs, comment on posts, and view trending blogs. Users can sign in using Google OAuth for easy authentication, upload images via Cloudinary, and manage their blogs through a personalized dashboard.
 
+## 🚀Featured In
+
+<table>
+
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+   <tr>
+      <td><img src="gssoc.jpg" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
+      <td>GirlScript Summer of Code 2024</td>
+      <td>GirlScript Summer of Code is a three-month-long Open Source Program conducted every summer by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development.</td>
+   </tr>
+   </table>
+
+<br />
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Statistics](#statistics)
+4. [Technologies Used](#technologies-used)
+5. [Installation](#installation)
+6. [Usage](#usage)
+7. [API Endpoints](#api-endpoints)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [GSSOC Labels](#gssoc-labels)
 
 ## Project Overview
 
 The aim of this project is to provide users with an interactive platform to share their thoughts, experiences, and ideas through blogs. The website includes features like trending blogs, recent blogs, a user management dashboard, and Google OAuth-based authentication for easy sign-in.
 
 ### Key Objectives:
+
 - Develop a user-friendly blogging platform.
 - Implement secure user authentication using Passport.js and Google OAuth.
 - Integrate Cloudinary for efficient image management.
@@ -27,135 +47,175 @@ The aim of this project is to provide users with an interactive platform to shar
 
 ## Features
 
-- **User Authentication:** Secure user login and registration using Google OAuth.
-- **Blog Management:** Users can create, edit, and delete blogs.
-- **Comment System:** Engage in discussions by commenting on blogs.
-- **Trending Page:** View the most popular blogs.
-- **Recent Blogs Page:** Display newly created blogs.
-- **User Dashboard:** Manage and track your blogs in a dedicated dashboard.
-- **Image Management:** Upload and manage blog images with Cloudinary.
+- **User Authentication**: Secure user login and registration using Google OAuth.
+- **Blog Management**: Users can create, edit, and delete blogs.
+- **Comment System**: Engage in discussions by commenting on blogs.
+- **Trending Page**: View the most popular blogs.
+- **Recent Blogs Page**: Display newly created blogs.
+- **User Dashboard**: Manage and track your blogs in a dedicated dashboard.
+- **Image Management**: Upload and manage blog images with Cloudinary.
+
+## Statistics 📊  
+
+<table align="center">
+  <thead align="center">
+      <tr border: 1px;>
+          <td><b>🌟 Stars</b></td>
+          <td><b>🍴 Forks</b></td>
+          <td><b>🐛 Issues</b></td>
+          <td><b>🔔 Open PRs</b></td>
+          <td><b>🔕 Closed PRs</b></td>
+          <td><b>🛠 Languages</b></td>
+          <td><b>🌐 Contributors </b></td>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><img alt="Stars" src="https://img.shields.io/github/stars/sharmavikas4/MERN_BLOG?style=flat&logo=github"/></td>
+          <td><img alt="Forks" src="https://img.shields.io/github/forks/sharmavikas4/MERN_BLOG?style=flat&logo=github"/></td>
+          <td><img alt="Issues" src="https://img.shields.io/github/issues/sharmavikas4/MERN_BLOG"/></td>
+          <td><img alt="Open Pull Requests" src="https://img.shields.io/github/issues-pr/sharmavikas4/MERN_BLOG"/></td>
+          <td><img alt="Closed Pull Requests" src="https://img.shields.io/github/issues-pr-closed/sharmavikas4/MERN_BLOG"/></td>
+          <td><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/sharmavikas4/MERN_BLOG"/></td>
+          <td><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/sharmavikas4/MERN_BLOG?color=2b9348"/></td>
+      </tr>
+  </tbody>
+</table>
 
 ## Technologies Used
 
-- **Frontend:**
-  - React.js
-  - Vite.js
-  - Material UI (for styling)
+### Frontend:
 
-- **Backend:**
-  - Node.js
-  - Express.js
+- React.js
+- Vite.js
+- Material UI (for styling)
 
-- **Database:**
-  - MongoDB
+### Backend:
 
-- **Authentication:**
-  - Passport.js
-  - Google OAuth
+- Node.js
+- Express.js
 
-- **Image Hosting:**
-  - Cloudinary
+### Database:
+
+- MongoDB
+
+### Authentication:
+
+- Passport.js
+- Google OAuth
+
+### Image Hosting:
+
+- Cloudinary
 
 ## Installation
 
 1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/your-username/blogging-website.git
-    ```
+   ```bash
+   git clone https://github.com/sharmavikas4/MERN_BLOG.git
+   ```
 
 2. Navigate to the project directory:
-
-    ```bash
-    cd MERN_BLOG
-    ```
+   ```bash
+   cd MERN_BLOG
+   ```
 
 3. Install dependencies:
-
-    ```bash
-    cd server
-    npm install
-    cd ..
-    cd client
-    npm install
-    ```
+   - For the server:
+     ```bash
+     cd server
+     npm install
+     ```
+   - For the client:
+     ```bash
+     cd ../client
+     npm install
+     ```
 
 4. Set up environment variables:
-
-    Create a `.env` file in the server directory and add the following:
-
-    ```bash
-    GOOGLE_CLIENT_ID=<your-google-client-id>
-    GOOGLE_CLIENT_SECRET=<your-google-client-secret>
-    URL=<your-server-url>
-    CLIENT_URL=<your-client-url>
-    DB=<your-database-connection-string>
-    CLOUD_NAME=<your-cloudinary-cloud-name>
-    CLOUDINARY_KEY=<your-cloudinary-api-key>
-    CLOUDINARY_SECRET=<your-cloudinary-api-secret>
-    ```
+   - Create a `.env` file in the server directory and add:
+     ```
+     GOOGLE_CLIENT_ID=<your-google-client-id>
+     GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+     URL=<your-server-url>
+     CLIENT_URL=<your-client-url>
+     DB=<your-database-connection-string>
+     CLOUD_NAME=<your-cloudinary-cloud-name>
+     CLOUDINARY_KEY=<your-cloudinary-api-key>
+     CLOUDINARY_SECRET=<your-cloudinary-api-secret>
+     ```
 
 5. Start the backend server:
-
-    ```bash
-    nodemon index.js
-    ```
-
-6. Set up environment variables:
-
-    Create a `.env` file in the client  directory and add the following:
    ```bash
-    VITE_REACT_APP_SERVER_URL=<your-server-url>
-    VITE_REACT_APP_CLIENT_URL=<your-client-url>
-    ```
-   
-8. Start the client side(frontend):
+   nodemon index.js
+   ```
+
+6. Set up environment variables for the client:
+   - Create a `.env` file in the client directory and add:
+     ```
+     VITE_REACT_APP_SERVER_URL=<your-server-url>
+     VITE_REACT_APP_CLIENT_URL=<your-client-url>
+     ```
+
+7. Start the client side (frontend):
    ```bash
    npm run dev
    ```
 
 ## Usage
 
-- Visit the website and sign in using your Google account.
-- Create, edit, or delete blogs from your dashboard.
-- Explore trending blogs or recent blogs on the respective pages.
-- Comment on blogs and engage with the community.
+1. Visit the website and sign in using your Google account.
+2. Create, edit, or delete blogs from your dashboard.
+3. Explore trending or recent blogs on their respective pages.
+4. Comment on blogs to engage with the community.
 
 ## API Endpoints
 
-- `POST /auth/google`: Google OAuth login.
-- `POST /success`: Create a new blog.
-- `GET /sucess`: Fetches all blog
-- `POST /success/like`: Used to add like to a post.
-- `POST /success/comments`: Add a comment to a blog.
-- `GET /trending`: Fetch trending blogs based on the likes.
-- `GET /new`: Fetch recently created blogs.
-- `POST /edit`: Edit a blog.
-- `POST /del`: Delete a blog.
-- `POST /success/check`: Check whether a user has liked a post or not.
-- `POST /blog`: Fetches a particular blog
-- `GET /dashboard` : Fetches current user data
-- `GET /likePost` : Fetches the post liked by current user.
-- `GET /logout`: Logout current user
+| Method | Endpoint                       | Description                                    |
+|--------|-------------------------------|------------------------------------------------|
+| POST   | /auth/google                  | Google OAuth login                             |
+| POST   | /success                      | Create a new blog                             |
+| GET    | /success                      | Fetch all blogs                               |
+| POST   | /success/like                 | Add like to a post                            |
+| POST   | /success/comments              | Add a comment to a blog                       |
+| GET    | /trending                     | Fetch trending blogs based on likes           |
+| GET    | /new                          | Fetch recently created blogs                   |
+| POST   | /edit                         | Edit a blog                                   |
+| POST   | /del                          | Delete a blog                                 |
+| GET    | /dashboard                    | Fetch current user data                       |
+| GET    | /likePost                     | Fetch posts liked by current user             |
+| GET    | /logout                       | Logout current user                           |
+
+
 
 ## Contributing
 
 Contributions are welcome! To contribute:
 
 1. Fork the repository.
-2. Create a new feature branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -m 'Add your feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
+2. Create a new feature branch:
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m 'Add your feature'
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature
+   ```
 5. Open a pull request.
 
-## 👀 Our Contributors
+## License
 
-- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
-- Make sure you show some love by giving ⭐ to our repository.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-<div align="center">
+## GSSOC Labels
 
-  <a href="https://github.com/sharmavikas4/MERN_BLOG">
-    <img src="https://contrib.rocks/image?repo=sharmavikas4/MERN_BLOG&&max=100" />
-  </a>
-</div>
+This project is part of **GirlScript Summer of Code** initiative. The following labels are used for tracking contributions:
+
+- **good first issue**: Suitable for newcomers.
+- **help wanted**: Contributions needed.
+- **enhancement**: Suggest improvements or new features.
+
