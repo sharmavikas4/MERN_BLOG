@@ -247,7 +247,7 @@ A heartfelt thank you to the following individuals for their valuable contributi
 
 <div align='center'>
 
-[![Stargazers repo roster for @sharmavikas4/MERN_BLOG](https://reporoster.com/stars/sharmavikas4/MERN_BLOG)](https://github.com/sharmavikas4/MERN_BLOG/stargazers)
+(https://reporoster.com/stars/sharmavikas4/MERN_BLOG)](https://github.com/sharmavikas4/MERN_BLOG/stargazers)
 
 ![Stars](https://img.shields.io/github/stars/sharmavikas4/MERN_BLOG?style=social)  
 **Total Stars: [![Stars Count](https://img.shields.io/badge/stars-123-yellow)](https://github.com/sharmavikas4/MERN_BLOG/stargazers)**
@@ -258,7 +258,7 @@ A heartfelt thank you to the following individuals for their valuable contributi
 
 <div align='center'>
 
-[![Forkers repo roster for @sharmavikas4/MERN_BLOG](https://reporoster.com/forks/sharmavikas4/MERN_BLOG)](https://github.com/sharmavikas4/MERN_BLOG/network/members)
+(https://reporoster.com/forks/sharmavikas4/MERN_BLOG)](https://github.com/sharmavikas4/MERN_BLOG/network/members)
 
 ![Forks](https://img.shields.io/github/forks/sharmavikas4/MERN_BLOG?style=social)  
 **Total Forks: [![Forks Count](https://img.shields.io/badge/forks-456-blue)](https://github.com/sharmavikas4/MERN_BLOG/network)**
