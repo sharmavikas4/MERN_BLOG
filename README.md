@@ -20,6 +20,7 @@ An interactive and feature-rich blogging website developed using modern web tech
 
 <br />
 
+
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
@@ -30,14 +31,12 @@ An interactive and feature-rich blogging website developed using modern web tech
 6. [Usage](#usage)
 7. [API Endpoints](#api-endpoints)
 8. [Contributing](#contributing)
-9. [Pull Request Review Criteria](#PullRequestReviewCriteria)
-10. [Code Of Conduct](#CodeofConduct)
-11. [Contributors](#Contributors)
-12. [Stargazers](#Stargazers)
-13. [Forkers](#Forkers)
+9. [Pull Request Review Criteria](#pull-request-review-criteria)
+10. [Code of Conduct](#code-of-conduct)
+11. [Contributors](#contributors)
+12. [Stargazers](#stargazers)
+13. [Forkers](#forkers)
 14. [License](#license)
-
-
 ## Project Overview
 
 The aim of this project is to provide users with an interactive platform to share their thoughts, experiences, and ideas through blogs. The website includes features like trending blogs, recent blogs, a user management dashboard, and Google OAuth-based authentication for easy sign-in.
