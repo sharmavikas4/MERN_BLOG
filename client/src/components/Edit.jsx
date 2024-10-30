@@ -15,6 +15,7 @@ function Edit(props) {
         title: state.title,
         content: state.content,
         image:"",
+        category:state.category
     });
     console.log(state);
     const [file,setFile] = useState(null);
@@ -25,7 +26,7 @@ function Edit(props) {
             setFile(event.target.files[0]);
         }
     setPost((prevValue)=>{
-      return name==="title"?{...prevValue,title:value}:(name==="image"?{...prevValue,image: value}:{...prevValue,content: value});
+      return name==="title"?{...prevValue,title:value}:(name==="image"?{...prevValue,image: value}:(name==="category"?{...prevValue,category: value}:{...prevValue,content: value}));
     })
     }
     function del(pid,id){
@@ -37,7 +38,7 @@ function Edit(props) {
     }
     function ed(pid,id){
       setIsEditing(true);
-      axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}`+"/edit",{pid: pid,id: id,title: post.title,content: post.content,image: file},{headers:{
+      axios.post(`${import.meta.env.VITE_REACT_APP_SERVER_URL}`+"/edit",{pid: pid,id: id,title: post.title,content: post.content,category: post.category,image: file},{headers:{
         'Content-Type': 'multipart/form-data'
       },withCredentials: true}).then((res)=>{if (res.data.message){
         setIsEditing(false);
@@ -58,6 +59,24 @@ function Edit(props) {
     <textarea rows="8" column="50" name="content" onChange={change} value={post.content}></textarea>
     <label className="label">Select a new image if you want to change image</label>
     <input type="file" onChange={change} name="image" value={post.image} className="file"></input>
+    <div className="mb-3 category">
+                <select className="form-select form-control" name="category" value={post.category} onChange={change} required >
+                    <option >Category</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Health">Health</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Industry">Industry</option>
+                    <option value="Society">Society</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="History">History</option>
+                    <option value="Art">Art</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Quotes">Quotes</option>
+                    <option value="Education">Education</option>
+                    <option value="Others">Others</option>
+                  </select>
+            </div>
     <div>
     {!(isDeleting||isEditing)&&<DeleteIcon onClick={()=>{del(state.pid,state.id)}} fontSize="large"></DeleteIcon>}
     {!(isDeleting||isEditing)&&<button type="submit" className="ed"><EditIcon fontSize="large"></EditIcon></button>}
