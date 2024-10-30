@@ -37,6 +37,7 @@ An interactive and feature-rich blogging website developed using modern web tech
 12. [Stargazers](#stargazers)
 13. [Forkers](#forkers)
 14. [License](#license)
+
 ## Project Overview
 
 The aim of this project is to provide users with an interactive platform to share their thoughts, experiences, and ideas through blogs. The website includes features like trending blogs, recent blogs, a user management dashboard, and Google OAuth-based authentication for easy sign-in.
