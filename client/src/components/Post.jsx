@@ -99,7 +99,7 @@ function Post(props) {
     <Box sx={{ flexGrow: 1 }} className="bo">
      <Card className="card">
         <h1 className="title">{state.post?.title?.slice(0,1).toUpperCase() + state.post?.title?.slice(1)}</h1>
-        <img className="postImage" src = {state.post.image} alt = "Post" />
+        {state.post.image && <img className="postImage" src = {state.post.image} alt = "Post" />}
         <p className="content">{state.post?.content?.split('\n').map((line,i)=>{return <Fragment key={i}>{line}<br/></Fragment>})}</p>
         <h6>Created by <span className="name">{state.name.slice(0,1).toUpperCase() + state.name.slice(1)}</span></h6>
         <button onClick={copy} className="copy" style={{width:isCopied?"10%":"5%",opacity:isCopied?"0.8":"1"}}>{isCopied?"Copied the link":<ContentCopyIcon/>}</button>

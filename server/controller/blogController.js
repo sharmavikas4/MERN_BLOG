@@ -3,39 +3,56 @@ import { v2 as cloudinary } from "cloudinary";
 // Create a new blog post
 const createBlog = async (req, res) => {
   try {
-    console.log(req.file.path);
-    const result = await cloudinary.uploader.upload(req.file.path);
+    let imageData = null;
+
+    // Handle image upload if file exists
+    if (req.file) {
+      try {
+        const result = await cloudinary.uploader.upload(req.file.path);
+        imageData = {
+          path: req.file.path,
+          public_id: result.public_id
+        };
+      } catch (uploadError) {
+        console.error("Image upload error:", uploadError);
+        return res.status(400).json({ 
+          message: false, 
+          error: "Image upload failed" 
+        });
+      }
+    }
+
+    // Create new post object with conditional image data
     const newpost = {
       title: req.body.title,
       content: req.body.content,
-      image: req.file.path,
       date: Date.now(),
-      public_id: req.body.public_id,
+      ...(imageData && {
+        image: imageData.path,
+        public_id: imageData.public_id
+      })
     };
-    console.log(result.public_id);
-    // USER.findOneAndUpdate(
-    //   { email: req.user.email }, // Update condition
-    //   { $set: { img: req.file.path } } // New field and value
-    // )
-    //   .then(() => {
-    //     console.log("Added successfully");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
-    // Find the user and add the post
+
+    // Find and update user
     const foundUser = await USER.findById(req.user.id);
-    if (foundUser) {
-      foundUser.post.push(newpost);
-      await foundUser.save();
-      return res.json({ message: true });
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // If user is not found
-    res.status(404).json({ message: "User not found" });
+    foundUser.post.push(newpost);
+    await foundUser.save();
+    
+    return res.json({ 
+      message: true,
+      post: newpost
+    });
+
   } catch (error) {
-    console.error("Error:", err);
-    res.status(500).json({ message: false, error: err.message });
+    console.error("Error:", error);
+    return res.status(500).json({ 
+      message: false, 
+      error: error.message 
+    });
   }
 };
 
