@@ -25,17 +25,17 @@ An interactive and feature-rich blogging website developed using modern web tech
 
 1. [Project Overview](#project-overview)
 2. [Features](#features)
-3. [Statistics](#statistics)
+3. [Statistics](#statistics-)
 4. [Technologies Used](#technologies-used)
 5. [Installation](#installation)
 6. [Usage](#usage)
 7. [API Endpoints](#api-endpoints)
 8. [Contributing](#contributing)
-9. [Pull Request Review Criteria](#pull-request-review-criteria)
-10. [Code of Conduct](#code-of-conduct)
+9. [Pull Request Review Criteria](#pull-request-review-criteria-)
+10. [Code of Conduct](#code-of-conduct-)
 11. [Contributors](#contributors)
-12. [Stargazers](#stargazers)
-13. [Forkers](#forkers)
+12. [Stargazers](#stargazers-)
+13. [Forkers](#forkers-)
 14. [License](#license)
 
 ## Project Overview
