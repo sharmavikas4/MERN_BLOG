@@ -11,13 +11,15 @@ function Edit(props) {
     const {state} = useLocation();
     const [isDeleting,setIsDeleting] = useState(false);
     const [isEditing,setIsEditing] = useState(false);
+    console.log(state);
     const [post,setPost] = useState({
         title: state.title,
         content: state.content,
+        category: state.category,
         image:"",
-        category:state.category
+        
     });
-    console.log(state);
+    
     const [file,setFile] = useState(null);
     const navigate = useNavigate();
     function change(event){
@@ -59,8 +61,9 @@ function Edit(props) {
     <textarea rows="8" column="50" name="content" onChange={change} value={post.content}></textarea>
     <label className="label">Select a new image if you want to change image</label>
     <input type="file" onChange={change} name="image" value={post.image} className="file"></input>
+    {console.log(post)}
     <div className="mb-3 category">
-                <select className="form-select form-control" name="category" value={post.category} onChange={change} required >
+                <select className="form-select form-control" name="category" value={post.category} onChange={change} required>
                     <option >Category</option>
                     <option value="Fashion">Fashion</option>
                     <option value="Travel">Travel</option>
