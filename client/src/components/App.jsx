@@ -16,6 +16,7 @@ function App() {
     title: "",
     image: "",
     content: "",
+    category: ""
   });
   function change(event) {
     const { name, value } = event.target;
@@ -27,7 +28,9 @@ function App() {
         ? { ...prevValue, title: value }
         : name === "image"
         ? { ...prevValue, image: value }
-        : { ...prevValue, content: value };
+        :name === "category"?
+        {...prevValue, category: value}
+        :{ ...prevValue, content: value };
     });
   }
   const [login, setLogin] = useState(false);

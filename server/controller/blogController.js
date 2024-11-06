@@ -8,6 +8,7 @@ const createBlog = async (req, res) => {
     const newpost = {
       title: req.body.title,
       content: req.body.content,
+      category: req.body.category,
       image: req.file.path,
       date: Date.now(),
       public_id: req.body.public_id,
@@ -32,10 +33,11 @@ const createBlog = async (req, res) => {
     }
 
     // If user is not found
-    res.status(404).json({ message: "User not found" });
+    else{
+    return res.status(404).json({ message: "User not found",error: err.message });}
   } catch (error) {
     console.error("Error:", err);
-    res.status(500).json({ message: false, error: err.message });
+    res.status(500).json({ message: false });
   }
 };
 
@@ -204,6 +206,7 @@ const newBlogs = async (req, res) => {
 const editBlog = async (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
+  const category = req.body.category;
   let image = req.file ? req.file.path : "";
 
   try {
@@ -241,6 +244,7 @@ const editBlog = async (req, res) => {
     // Update post details
     foundUser.post[postIndex].title = title;
     foundUser.post[postIndex].content = content;
+    foundUser.post[postIndex].category = category;
 
     await foundUser.save();
     res.json({ message: true });

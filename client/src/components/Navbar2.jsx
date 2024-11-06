@@ -47,7 +47,7 @@ export default function ButtonAppBar(props) {
             }}
           >
             <img height={"45rem"} width={"45rem"} src="images/blog2.png" alt="icon"></img>
-              <span className="title">BlogScape</span>
+            <span className="title">BlogScape</span>
           </Typography>
           <Typography
             variant="h5"
@@ -63,10 +63,10 @@ export default function ButtonAppBar(props) {
           <button
             className="createButton"
             onClick={() => {
-              navigate("/new");
+              navigate("/createpost");
             }}
           >
-            Explore Blogs
+            Create Blogs <AddIcon/>
           </button>
           <button className="logoutButton" onClick={props.logout}>
             Logout
