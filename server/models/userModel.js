@@ -10,8 +10,14 @@ const userSchema = new mongoose.Schema({
   googleId: String,
   post: [
     {
-      title: String,
-      content: String,
+      title:{
+        type:String,
+        required:true
+      },
+      content:{
+        type:String,
+        required:true
+      },
       image: String,
       like: {
         n: { type: Number, default: 0 },
@@ -31,6 +37,11 @@ const userSchema = new mongoose.Schema({
       ],
       date: Date,
       public_id: String,
+      category:{
+        type:String,
+        enum:["All","Travel","Fashion","Tech","Health","Quotes","Education","Society","Industry","Agriculture","Marketing","History","Art","Others"],
+        required:true
+      }
     },
   ],
 });

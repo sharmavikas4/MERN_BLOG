@@ -86,7 +86,7 @@ function Dashboard(props) {
         return <Grid item xs={12} sm={4} key={p._id}>
         {/* onMouseOver={()=>{unhide(i)}} onMouseOut={()=>{hide(i)}} */}
         <Item>
-          <Card onClick={()=>{navigate("/edit",{state: {image: p.image,title: p.title,content: p.content,pid: p._id,id: data._id}})}}>
+          <Card onClick={()=>{navigate("/edit",{state: {image: p.image,title: p.title,content: p.content,category:p.category,pid: p._id,id: data._id}})}}>
           <CardMedia  component="img" height="200" image={p.image} alt="Chevrolet" />
           <CardHeader  title={p.title} />
           {/* {<DeleteIcon className="delete" onClick={(event)=>{event.isPropagationStopped();console.log("hi")}} fontSize="large"></DeleteIcon>}

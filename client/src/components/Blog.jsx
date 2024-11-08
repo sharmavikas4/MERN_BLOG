@@ -18,6 +18,7 @@ function Blog() {
     post: {
       title:"",
       content:"",
+      category:"",
       image:"",
       like:{
         n: 0

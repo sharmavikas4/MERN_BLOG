@@ -26,6 +26,8 @@ const createBlog = async (req, res) => {
     const newpost = {
       title: req.body.title,
       content: req.body.content,
+      category: req.body.category,
+      image: req.file.path,
       date: Date.now(),
       ...(imageData && {
         image: imageData.path,
@@ -221,6 +223,7 @@ const newBlogs = async (req, res) => {
 const editBlog = async (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
+  const category = req.body.category;
   let image = req.file ? req.file.path : "";
 
   try {
@@ -258,6 +261,7 @@ const editBlog = async (req, res) => {
     // Update post details
     foundUser.post[postIndex].title = title;
     foundUser.post[postIndex].content = content;
+    foundUser.post[postIndex].category = category;
 
     await foundUser.save();
     res.json({ message: true });
